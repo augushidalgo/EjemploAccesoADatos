@@ -23,5 +23,10 @@ namespace CapaNegocio
         {
             objetoCD.Insertar(nombre, desc, marca, precio, stock);
         }
+
+        public void EliminarProd(string id)
+        {
+            objetoCD.EliminarProd(id);
+        }
     }
 }

@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data;
 using Microsoft.Data.SqlClient;
+using System.Configuration;
 
 namespace CapaDatos
 {
     public class CD_Conexion
     {
+
         private SqlConnection Conexion = 
             new SqlConnection("Data Source=HIDALGOLAPTOP;Initial Catalog=Practica;Integrated Security=True; TrustServerCertificate=True");
 

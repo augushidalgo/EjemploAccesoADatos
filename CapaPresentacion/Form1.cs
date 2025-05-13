@@ -1,5 +1,6 @@
 
 using CapaNegocio;
+using System.Configuration;
 
 namespace CapaPresentacion
 {
@@ -10,6 +11,9 @@ namespace CapaPresentacion
         public Form1()
         {
             InitializeComponent();
+
+            // Inyección de cadena de conexion hacia la biblioteca de clases
+            //string cadenaConexion =ConfigurationManager.ConnectionStrings["Cadena"].ConnectionString;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -46,7 +50,8 @@ namespace CapaPresentacion
             {
                 objetoCN.Insertar(txtnombre.Text, txtdescripcion.Text, txtmarca.Text, double.Parse(txtprecio.Text), int.Parse(txtstock.Text));
                 MessageBox.Show("Producto guardado correctamente", "Guardado");
-                // Volver a cargar los productos
+                MostrarProductos();
+
 
                 // Limpiar los campos llamando a un método que lo haga
 
@@ -57,5 +62,18 @@ namespace CapaPresentacion
             }
         }
 
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (dgvProductos.SelectedRows.Count > 0)
+            {
+                string idProducto = dgvProductos.CurrentRow.Cells["id"].Value.ToString();
+                objetoCN.EliminarProd(idProducto);
+                MessageBox.Show("Producto eliminado correctamente", "Eliminado");
+                MostrarProductos();
+            }
+            else {
+                MessageBox.Show("Seleccione un producto para eliminar", "Error");
+            }
+        }
     }
 }

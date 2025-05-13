@@ -45,5 +45,17 @@ namespace CapaDatos
             comando.Parameters.Clear();
             conexion.CerrarConexion();
         }
+
+        // Uso de DELETE
+        public void EliminarProd(string id)
+        {
+            comando.Connection = conexion.AbrirConexion();
+            comando.CommandText = "EliminarProducto";
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.AddWithValue("@idpro", id);
+            comando.ExecuteNonQuery();
+            comando.Parameters.Clear();
+            conexion.CerrarConexion();
+        }
     }
 }
