@@ -41,6 +41,7 @@
             txtstock = new TextBox();
             btnguardar = new Button();
             btnEliminar = new Button();
+            btnEditar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
             SuspendLayout();
             // 
@@ -153,11 +154,22 @@
             btnEliminar.UseVisualStyleBackColor = true;
             btnEliminar.Click += btnEliminar_Click;
             // 
+            // btnEditar
+            // 
+            btnEditar.Location = new Point(845, 364);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(94, 29);
+            btnEditar.TabIndex = 13;
+            btnEditar.Text = "Editar";
+            btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1092, 450);
+            Controls.Add(btnEditar);
             Controls.Add(btnEliminar);
             Controls.Add(btnguardar);
             Controls.Add(txtstock);
@@ -194,5 +206,6 @@
         private TextBox txtstock;
         private Button btnguardar;
         private Button btnEliminar;
+        private Button btnEditar;
     }
 }

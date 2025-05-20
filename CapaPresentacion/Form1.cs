@@ -7,6 +7,7 @@ namespace CapaPresentacion
     public partial class Form1 : Form
     {
         CN_Productos objetoCN = new CN_Productos();
+        bool editar = false;
 
         public Form1()
         {
@@ -46,19 +47,40 @@ namespace CapaPresentacion
 
         private void btnguardar_Click(object sender, EventArgs e)
         {
-            try
+            if (editar == false)
             {
-                objetoCN.Insertar(txtnombre.Text, txtdescripcion.Text, txtmarca.Text, double.Parse(txtprecio.Text), int.Parse(txtstock.Text));
-                MessageBox.Show("Producto guardado correctamente", "Guardado");
-                MostrarProductos();
+                try
+                {
+                    objetoCN.Insertar(txtnombre.Text, txtdescripcion.Text, txtmarca.Text, double.Parse(txtprecio.Text), int.Parse(txtstock.Text));
+                    MessageBox.Show("Producto guardado correctamente", "Guardado");
+                    MostrarProductos();
 
 
-                // Limpiar los campos llamando a un método que lo haga
+                    // Limpiar los campos llamando a un método que lo haga
 
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al guardar el producto: " + ex.Message, "Error");
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Error al guardar el producto: " + ex.Message, "Error");
+                try
+                {
+                    int id = Convert.ToInt32(dgvProductos.CurrentRow.Cells["id"].Value.ToString());
+                    objetoCN.EditarProd(id,txtnombre.Text, txtdescripcion.Text, txtmarca.Text, double.Parse(txtprecio.Text), int.Parse(txtstock.Text));
+                    MessageBox.Show("Producto guardado correctamente", "Guardado");
+                    MostrarProductos();
+
+
+                    // Limpiar los campos llamando a un método que lo haga
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al guardar el producto: " + ex.Message, "Error");
+                }
             }
         }
 
@@ -71,8 +93,26 @@ namespace CapaPresentacion
                 MessageBox.Show("Producto eliminado correctamente", "Eliminado");
                 MostrarProductos();
             }
-            else {
+            else
+            {
                 MessageBox.Show("Seleccione un producto para eliminar", "Error");
+            }
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (dgvProductos.SelectedRows.Count > 0)
+            {
+                editar = true;
+                txtnombre.Text = dgvProductos.CurrentRow.Cells["nombre"].Value.ToString();
+                txtdescripcion.Text = dgvProductos.CurrentRow.Cells["descripcion"].Value.ToString();
+                txtmarca.Text = dgvProductos.CurrentRow.Cells["marca"].Value.ToString();
+                txtprecio.Text = dgvProductos.CurrentRow.Cells["precio"].Value.ToString();
+                txtstock.Text = dgvProductos.CurrentRow.Cells["stock"].Value.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un Producto");
             }
         }
     }

@@ -57,5 +57,22 @@ namespace CapaDatos
             comando.Parameters.Clear();
             conexion.CerrarConexion();
         }
+
+        // Uso de UPDATE
+        public void Editar(int id, string nombre, string desc, string marca, double precio, int stock)
+        {
+            comando.Connection = conexion.AbrirConexion();
+            comando.CommandText = "EditarProducto";
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.AddWithValue("@id",id);
+            comando.Parameters.AddWithValue("@nombre", nombre);
+            comando.Parameters.AddWithValue("@descripcion", desc);
+            comando.Parameters.AddWithValue("@marca", marca);
+            comando.Parameters.AddWithValue("@precio", precio);
+            comando.Parameters.AddWithValue("@stock", stock);
+            comando.ExecuteNonQuery();
+            comando.Parameters.Clear();
+            conexion.CerrarConexion();
+        }
     }
 }
